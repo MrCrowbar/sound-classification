@@ -52,7 +52,7 @@ def record(seconds=3):
 	return torchaudio.load(filename)
     
 
-def predict(tensor):
+def predict(tensor, device, model):
 	#
 	new_sample_rate = 8000
 	sample_rate = 44100
@@ -107,8 +107,8 @@ def collate_fn(batch):
 
 	# Gather in lists, and encode labels as indices
 	for waveform, label in batch:
-	tensors += [waveform]
-	targets += [torch.tensor(label)]
+		tensors += [waveform]
+		targets += [torch.tensor(label)]
 
 	# Group the list of tensors into a batched tensor
 	tensors = pad_sequence(tensors)
